@@ -20,5 +20,42 @@ using vl = vector<ll>;
 
 int main()
 {
-
+    int n;
+    cin >> n;
+    vl a(n);
+    rep(i, n)
+    {
+        cin >> a[i];
+    }
+    ll mod = 1000000007;
+    vector<vl> memo(3, vl(n + 1, 0));
+    rep(i, n)
+    {
+        rep(j, 3)
+        {
+            memo[j][i + 1] = memo[j][i];
+        }
+        rep(j, 3)
+        {
+            if(memo[j][i] == a[i])
+            {
+                memo[j][i + 1] = memo[j][i] + 1;
+                break;
+            }
+        }
+    }
+    ll count = 1;
+    rep(i, n)
+    {
+        int temp = 0;
+        rep(j, 3)
+        {
+            if(memo[j][i] == a[i])
+            {
+                temp++;
+            }
+        }
+        count = (count * temp) % mod;
+    }
+    cout << count << endl;
 }
